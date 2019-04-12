@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="@Spectre" uuid="4e09a54f-9f86-4604-b516-c0470e31ee9b">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="ORACLE" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>knights</user-name>
+    </data-source>
+  </component>
+</project>
