@@ -1,17 +1,26 @@
 package models;
 
+import models.queries.UserAccountQueries;
+
 public class UserAccount {
 
     private int accountID;
-    private int userID;
+    private int UIN;
     private int bankID;
+    private int balance;
+
+    private String firstname;
 
     private String status;
 
-    public UserAccount(int accountID, int userID, int bankID) {
+    public UserAccount(int accountID, int UIN, int bankID, int balance) {
 
         this.accountID = accountID;
-        this.userID = userID;
+        this.UIN = UIN;
+        this.bankID = bankID;
+        this.balance = balance;
+
+        firstname = UserAccountQueries.getName(UIN);
 
         setStatus("active"); // "active" when UserAccount is added..
 
@@ -25,16 +34,28 @@ public class UserAccount {
         return accountID;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUIN() {
+        return UIN;
     }
 
     public int getBankID() {
         return bankID;
     }
 
+    public int getBalance(){
+    	return balance;
+	}
+
+	public void setBalance(int balance){
+    	this.balance = balance;
+	}
+
     public String getStatus() {
         return status;
     }
+
+    public String getFirstName(){
+    	return firstname;
+	}
 
 }

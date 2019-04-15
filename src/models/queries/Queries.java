@@ -6,8 +6,8 @@ import java.sql.Statement;
 
 public class Queries {
 
-    public Connection connection;
-    public Statement query_statement;
+    public static Connection connection;
+    public static Statement query_statement;
 
     public Queries(Connection connection) {
 
@@ -50,7 +50,7 @@ public class Queries {
         return "\"" + string + "\"";
     }
 
-    public boolean isEmpty(String query){
+    public static boolean isEmpty(String query){
 		try {
 
 			ResultSet result = query_statement.executeQuery(query);

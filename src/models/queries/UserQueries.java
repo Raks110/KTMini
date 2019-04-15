@@ -48,18 +48,30 @@ public class UserQueries extends Queries {
 
     public boolean checkInsert(String username,String password) {
 
-        //try {
+    	return isEmpty("SELECT * FROM users WHERE firstname = '" + username + "' AND password= '" + password + "'");
 
-            return isEmpty("SELECT * FROM users WHERE firstname = '" + username + "' AND password= '" + password + "'");
-        //    System.out.println("Queried data..");
+    }
 
-         //   return !result.next();
+    public static boolean userExists(int UIN){
+    	return isEmpty("SELECT * FROM users WHERE UIN = " + UIN);
+	}
 
-        //} catch (Exception exception) {
-        //    System.out.println(exception);
-        //    return true;
-        //}
+    public int getMainUserID(User user){
+    	try {
+			String query = "SELECT UIN FROM users WHERE firstname = '" + user.getFirstName() + "' AND password = '" + user.getPassword() + "'";
+			System.out.println(query);
+			ResultSet resultSet = query_statement.executeQuery(query);
 
+			int ret;
+
+			resultSet.next();
+			return resultSet.getInt("UIN");
+
+		}
+    	catch(Exception e){
+    		e.printStackTrace();
+    		return -1;
+		}
     }
 
     private void print_relation(ResultSet resultSet) {

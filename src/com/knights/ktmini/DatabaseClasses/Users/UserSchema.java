@@ -30,18 +30,23 @@ public class UserSchema {
 	public boolean insertValue(){
 
 		UserQueries userQueries = new UserQueries(connection);
+		User user = new User(username, middlename, lastname, contact, UserQueries.userID,password);
 
 		if(userQueries.checkInsert(username,password)) {
 
 			try {
-				User user = new User(username, middlename, lastname, contact, UserQueries.userID,password);
-				userQueries.insert_record(user);
-				return true;
+				if(!user.getLastName().isEmpty()) {
+					userQueries.insert_record(user);
+					return true;
+				}
+				else{
+					return false;
+				}
 			}
 			catch(Exception ex){ex.printStackTrace();return false;}
 		}
 		else{
-			new UserLogin(UserQueries.userID);
+			new UserLogin(userQueries.getMainUserID(user));
 			return false;
 		}
 	}
