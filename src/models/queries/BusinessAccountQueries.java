@@ -12,29 +12,12 @@ public class BusinessAccountQueries extends Queries {
         super((connection));
     }
 
-    public boolean insert_record(BusinessAccount businessAccount) {
+    public boolean insert_record(int BID,int bankID,int amount) {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-
-        int businessAccountID = businessAccount.getBusinessAccountID();
-        int bankID = businessAccount.getBankID();
-        int businessID = businessAccount.getBusinessID();
-
-        double amount = businessAccount.getAmount();
-
-        //Convert from Date datatype to MySQL compatible string format of date..
-
-        String startDate_string = stringValue(format.format(businessAccount.getStartDate())); //gives quotes to date values for SQL
-        String endDate_string = stringValue(format.format(businessAccount.getEndDate()));
-
-        //String active = "active";
-        // inserting "active".. When business account is deleted, mark it inactive..
 
         try {
 
-            String query = insertIntoTableValues("businessAccount") + businessAccountID + ", " + businessID + ", " + bankID
-                    + ", " + amount + ", " + startDate_string + ", " + endDate_string + ", " + stringValue("active") + ")";
-
+            String query = "INSERT INTO businessAccount (BID,bankID,amount) VALUES (" + BID + ", " + bankID + ", " + amount + ")";
             System.out.println(query);
 
             query_statement.executeUpdate(query);
@@ -45,13 +28,5 @@ public class BusinessAccountQueries extends Queries {
         }
 
         return false;
-    }
-
-    public void display_relation() {
-
-    }
-
-    private void print_util(ResultSet resultSet) {
-
     }
 }

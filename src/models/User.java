@@ -12,7 +12,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String middleName, String lastName, String contactNumber, int userID, String password) {
+    public User(String firstName, String middleName, String lastName, String contactNumber, String password) {
 
         setFirstName(firstName);
         setMiddleName(middleName);

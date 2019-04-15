@@ -8,13 +8,9 @@ import java.sql.SQLException;
 
 public class UserQueries extends Queries {
 
-	public static int userID = 1901;
-
     public UserQueries(Connection connection) {
         super(connection);
 	}
-
-    //UserQueries() {}
 
     public Boolean insert_record(User user) {
 
@@ -23,14 +19,13 @@ public class UserQueries extends Queries {
         String middleName = user.getMiddleName();
         String password = user.getPassword();
 
-        userID++;
         String contact = user.getContactNumber();
 
         try {
 
             // stringValue return a string with quotation marks. This is required for SQL insert
 
-            String query = "insert Into users Values(" + userID + ", '" + firstName + "', '" + middleName + "', '" + lastName + "', '" + contact + "', '" + password + "')";
+            String query = "insert Into users(firstname,middlename,lastname,contact,password) Values('" + firstName + "', '" + middleName + "', '" + lastName + "', " + contact + ", '" + password + "')";
             System.out.println(query);
 
             query_statement.executeUpdate(query);

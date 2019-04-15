@@ -30,7 +30,7 @@ public class UserSchema {
 	public boolean insertValue(){
 
 		UserQueries userQueries = new UserQueries(connection);
-		User user = new User(username, middlename, lastname, contact, UserQueries.userID,password);
+		User user = new User(username, middlename, lastname, contact,password);
 
 		if(userQueries.checkInsert(username,password)) {
 

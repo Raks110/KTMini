@@ -12,12 +12,9 @@ public class BankQueries extends Queries {
         super(connection);
     }
 
-    public boolean insert_record(Bank bank) {
+    public boolean insert_record(String name, int UIN, String password) {
 
-        int bankID = bank.getBankID();
-        String name = bank.getName();
-
-        String query = insertIntoTableValues("bank") + bankID + ", " + stringValue(name) + ")";
+        String query = "INSERT INTO bank (name,managerID,password) VALUES ('" + name + "', " + UIN + ", '" + password + "')";
 
         System.out.println(query);
 

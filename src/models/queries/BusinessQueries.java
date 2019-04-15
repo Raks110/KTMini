@@ -12,15 +12,9 @@ public class BusinessQueries extends Queries {
     }
 
 
-    public boolean insert_record(Business business) {
+    public boolean insert_record(int managerID,String name,String password) {
 
-        int businessID = business.getBusinessID();
-        int managerID = business.getManagerID();
-
-        String name = business.getName();
-
-        String query = insertIntoTableValues("business") + businessID + ", " + managerID + ", " + stringValue(name) + ")";
-
+        String query = "INSERT INTO business (managerID,name,password) VALUES (" + managerID + ", '" + name + "', '" + password + "')";
         System.out.println(query);
 
         try {
