@@ -1,18 +1,6 @@
 
 use Project;
 
-CREATE TABLE globalLedger(
-
-	total_cash_flow NUMERIC(15, 2),
-	savings_interest NUMERIC(4, 2),
-	savings_amount NUMERIC(15, 2),
-	loan_interest NUMERIC(4,2),
-	loan_amount NUMERIC(16, 2),
-	credit_amount NUMERIC(15, 2),
-	debit_amount NUMERIC(15,2)
-
-);
-
 CREATE TABLE users(
 	UIN INT GENERATED ALWAYS AS IDENTITY,
 	firstName VARCHAR(30),
@@ -60,6 +48,16 @@ CREATE TABLE loan(
 	FOREIGN KEY(accountID) REFERENCES user_account(accountID)
 );
 
+CREATE TABLE businessLoan(
+	BLID INT GENERATED ALWAYS AS IDENTITY,
+	BAID INT,
+	amount numeric(10,2),
+	UIN INT,
+	PRIMARY KEY(BLID),
+	FOREIGN KEY(UIN) REFERENCES users(UIN),
+	FOREIGN KEY(BAID) REFERENCES businessAccount(BAID)
+);
+
 CREATE TABLE deposit(
 	DID INT GENERATED ALWAYS AS IDENTITY,
 	accountID INT,
@@ -68,6 +66,16 @@ CREATE TABLE deposit(
 	PRIMARY KEY(DID),
 	FOREIGN KEY(UIN) REFERENCES users(UIN),
 	FOREIGN KEY(accountID) REFERENCES user_account(accountID)
+);
+
+CREATE TABLE businessDeposit(
+	BDID INT GENERATED ALWAYS AS IDENTITY,
+	BAID INT,
+	amount numeric(10,2),
+	UIN INT,
+	PRIMARY KEY(BDID),
+	FOREIGN KEY(UIN) REFERENCES users(UIN),
+	FOREIGN KEY(BAID) REFERENCES businessAccount(BAID)
 );
 
 CREATE TABLE businessAccount(
@@ -88,8 +96,8 @@ CREATE TABLE contract(
 	terms VARCHAR(500),
 	amount numeric(15,2),
 	PRIMARY KEY(contractID),
-	FOREIGN KEY(contractorID) REFERENCES business(BID),
-	FOREIGN KEY(contracteeID) REFERENCES business(BID)
+	FOREIGN KEY(contractorID) REFERENCES businessAccount(BAID),
+	FOREIGN KEY(contracteeID) REFERENCES businessAccount(BAID)
 );
 
 CREATE TABLE payments(
@@ -101,16 +109,3 @@ CREATE TABLE payments(
 	FOREIGN KEY(recieverUIN) REFERENCES users(UIN),
 	FOREIGN KEY(senderUIN) REFERENCES users(UIN)
 )
-
-======================== LETS SEE =====================================
-
-CREATE TABLE appointments(
-	APPNID INT,
-	UIN INT,
-	BID INT,
-	timestamp Date,
-	status VARCHAR(8),
-	PRIMARY KEY(APPNID),
-	FOREIGN KEY(UIN) REFERENCES users(UIN),
-	FOREIGN KEY(BID) REFERENCES business(BID)
-);
