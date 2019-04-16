@@ -37,6 +37,7 @@ public class UserSchema {
 			try {
 				if(!user.getLastName().isEmpty()) {
 					userQueries.insert_record(user);
+					new UserLogin(userQueries.getMainUserID(user));
 					return true;
 				}
 				else{

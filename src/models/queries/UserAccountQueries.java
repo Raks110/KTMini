@@ -11,6 +11,9 @@ import java.util.List;
 
 public class UserAccountQueries extends Queries {
 
+	public static int[] UIDs;
+	public static int[] balances;
+
     public UserAccountQueries(Connection connection) {
         super(connection);
     }
@@ -95,7 +98,7 @@ public class UserAccountQueries extends Queries {
 		}
 	}
 
-	public UserAccount[] getAllUserAccounts(){
+	public String[] getAllUserAccounts(int UID){
 
     	UserAccount[] list = new UserAccount[100];
 
@@ -106,30 +109,51 @@ public class UserAccountQueries extends Queries {
 
 			System.out.println(rs.toString());
 
+			int[] UINArr = new int[100];
+			int[] AccnArr = new int[100];
+			int[] balArr = new int[100];
+			int[] bankArr = new int[100];
+
 			int i = 0;
 			UserLogin.lenUsers = 0;
 
 			//try {
+				while (true) {
+					if(rs.next()) {
+						System.out.println(rs.getInt("UIN"));
+						UINArr[i] = rs.getInt("UIN");
+						AccnArr[i] = rs.getInt("accountID");
+						balArr[i] = rs.getInt("balance");
+						bankArr[i] = rs.getInt("bankID");
+						++i;
+					}
+					else{
+						break;
+					}
+				}
 
-				while (rs.next()) {
-					System.out.println(rs.getInt("UIN"));
-					int UIN = rs.getInt("UIN");
-					int accountID = rs.getInt("accountID");
-					int balance = rs.getInt("balance");
-					int bankID = rs.getInt("bankID");
-					UserAccount userAccount = new UserAccount(accountID, UIN, bankID, balance);
-					list[i] = userAccount;
-					++i;
-					UserLogin.lenUsers++;
+				String[] ua = new String[i];
+				for(int j = 0;j<i;j++){
+					if(UINArr[j] == UID){
+						continue;
+					}
+					else{
+						//System.out.println(AccnArr[j] +  " " +UINArr[j] + " " +bankArr[j]+ " " +balArr[j]);
+						//ua[j] = new UserAccount(AccnArr[j],UINArr[j],bankArr[j],balArr[j]);
+
+						ua[j] = UserAccountQueries.getName(UINArr[j]);
+					}
 				}
 			//}
 			//catch(Exception e){e.getMessage();}
 
-			return list;
+			UIDs = UINArr;
+				balances = balArr;
+			return ua;
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			return list;
+			return null;
 		}
 	}
 

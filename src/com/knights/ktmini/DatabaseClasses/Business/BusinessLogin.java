@@ -1,9 +1,5 @@
-package com.knights.ktmini.DatabaseClasses.Users;
+package com.knights.ktmini.DatabaseClasses.Business;
 
-import models.Bank;
-import models.User;
-import models.UserAccount;
-import models.banking.Loan;
 import models.queries.*;
 
 import javax.swing.*;
@@ -14,21 +10,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
-public class UserLogin extends Queries {
-	public static int UID;
+public class BusinessLogin extends Queries {
+
+	public static int UIN;
+	public static String name;
 	public static int lenUsers;
+
+	public static int BAID;
+	public static int BID;
 
 	public static int accountNum;
 
 	private static Connection connection;
 
-	UserLogin(int UID){
-		UserLogin.UID = UID;
-		System.out.println("In constructor with UID " + UserLogin.UID);
+	BusinessLogin(int UIN,String name){
+		BusinessLogin.UIN = UIN;
+		BusinessLogin.name = name;
+		System.out.println("In constructor with UID " + BusinessLogin.UIN);
 
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -42,7 +41,7 @@ public class UserLogin extends Queries {
 		main(args);
 	}
 
-	public static void setFrameVis(JFrame jFrame,JPanel jPanel){
+	public static void setFrameVis(JFrame jFrame, JPanel jPanel){
 
 		jFrame.setContentPane(jPanel);
 
@@ -55,61 +54,58 @@ public class UserLogin extends Queries {
 	public static void main(String[] args) {
 
 		System.out.println("Inside InitView");
-		JFrame jFrame = new JFrame("Welcome to KT Mini");
+		JFrame jFrame = new JFrame("KT Enterprise");
 
 		JPanel jPanel = new JPanel(new GridLayout(1,2));
 
-		if(isEmpty("SELECT * FROM user_account WHERE UIN = " + Integer.toString(UID))){
+		BusinessAccountQueries baq = new BusinessAccountQueries(connection);
+		BusinessQueries bq = new BusinessQueries(connection);
+
+		BID = bq.getBID(UIN);
+		BAID = baq.getBAID(BID);
+
+		if(baq.checkInsert(BID)){
 
 			JButton addAccount = new JButton("Add a Bank Account");
 			addAccount.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame jFrame1 = new JFrame("Add a bank account");
-					JPanel accountPanel = new JPanel(new GridLayout(2,1));
+					JPanel accountPanel = new JPanel();
 
 					BankQueries bankQueries = new BankQueries(connection);
 
 					String[] banks = bankQueries.getAllBanks();
 
-					if(banks == null || BankQueries.immediateLength <= 0){
-						JLabel accountLabel = new JLabel("No banks available.");
-						accountPanel.add(accountLabel);
-					}
-					else {
-						JList bankList = new JList(banks);
-						bankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-						bankList.setVisibleRowCount(5);
+					JList bankList = new JList(banks);
+					bankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					bankList.setVisibleRowCount(5);
 
-						JScrollPane jsp = new JScrollPane(bankList);
+					accountPanel.add(bankList);
 
-						accountPanel.add(jsp);
+					JButton addBank = new JButton("Create Account");
+					addBank.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							String bankSel = (String)bankList.getSelectedValue();
+							int accn = Integer.parseInt(bankQueries.getMainbankID(bankSel) + Integer.toString(BID));
 
-						JButton addBank = new JButton("Create Account");
-						addBank.addActionListener(new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								String bankSel = (String) bankList.getSelectedValue();
-								int accn = Integer.parseInt(bankQueries.getMainbankID(bankSel) + Integer.toString(UID));
+							String bankID = bankQueries.getMainbankID(bankSel);
 
-								String bankID = bankQueries.getMainbankID(bankSel);
+							baq.insert_record(BID,Integer.parseInt(bankID),0);
 
-								UserAccount userAccount = new UserAccount(accn, UID, Integer.parseInt(bankID), 0);
-								UserAccountQueries userAccountQueries = new UserAccountQueries(UserLogin.connection);
+							BAID = baq.getBAID(BID);
 
-								userAccountQueries.insert_record(userAccount);
+							jFrame1.setVisible(false);
+							jFrame.setVisible(false);
 
-								jFrame1.setVisible(false);
-								jFrame.setVisible(false);
+						}
+					});
 
-							}
-						});
-
-						accountPanel.add(addBank);
-					}
+					accountPanel.add(addBank);
 					jFrame1.add(accountPanel);
 
-					UserLogin.setFrameVis(jFrame1,accountPanel);
+					BusinessLogin.setFrameVis(jFrame1,accountPanel);
 
 				}
 			});
@@ -121,11 +117,11 @@ public class UserLogin extends Queries {
 		}
 		else{
 
-			accountNum = UserAccountQueries.getAccountNum(UID);
+			accountNum = BAID;
 
 			JPanel innerPanel = new JPanel(new GridLayout(4,1));
 
-			JLabel jLabel = new JLabel("Your balance is " + Integer.toString(UserAccountQueries.getBalance(UID)));
+			JLabel jLabel = new JLabel("Your balance is " + Integer.toString(BusinessAccountQueries.getBalance(BAID)));
 			innerPanel.add(jLabel);
 
 			JButton takeLoan = new JButton("Avail Loan");
@@ -133,13 +129,13 @@ public class UserLogin extends Queries {
 			takeLoan.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					LoanQueries loanQueries = new LoanQueries(connection);
+					BusinessLoanQueries loanQueries = new BusinessLoanQueries(connection);
 					System.out.println("Inside Action for AVAIL LOAN");
-					if(loanQueries.loanTaken(UID)){
+					if(loanQueries.loanTaken(BAID)){
 						JFrame payLoanFrame = new JFrame("Avail Loan");
 						JPanel payLoanPanel = new JPanel(new GridLayout(2,1));
 
-						JLabel payLoanLabel = new JLabel("You have already taken a loan. Amount: " + loanQueries.loanAmt(UID));
+						JLabel payLoanLabel = new JLabel("You have already taken a loan. Amount: " + loanQueries.loanAmt(BAID));
 						payLoanPanel.add(payLoanLabel);
 
 						JPanel innerPayPanel = new JPanel(new GridLayout(1,2));
@@ -150,19 +146,19 @@ public class UserLogin extends Queries {
 						payLoanButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								if(Integer.parseInt(payLoanField.getText()) - UserAccountQueries.getBalance(UID) <= 0){
+								if(Integer.parseInt(payLoanField.getText()) - BusinessAccountQueries.getBalance(BAID) <= 0){
 									int addAmt = 0;
-									if(loanQueries.loanAmt(UID) - Integer.parseInt(payLoanField.getText()) < 0){
-										addAmt = - (loanQueries.loanAmt(UID) - Integer.parseInt(payLoanField.getText()));
+									if(loanQueries.loanAmt(BAID) - Integer.parseInt(payLoanField.getText()) < 0){
+										addAmt = - (loanQueries.loanAmt(BAID) - Integer.parseInt(payLoanField.getText()));
 									}
-									LoanQueries.updateLoanAmt(UID,loanQueries.loanAmt(UID) - Integer.parseInt(payLoanField.getText()));
-									UserAccountQueries.updateBalance(UID, UserAccountQueries.getBalance(UID) - Integer.parseInt(payLoanField.getText()) + addAmt);
+									BusinessLoanQueries.updateLoanAmt(BAID,loanQueries.loanAmt(BAID) - Integer.parseInt(payLoanField.getText()));
+									BusinessAccountQueries.updateBalance(BAID, BusinessAccountQueries.getBalance(BAID) - Integer.parseInt(payLoanField.getText()) + addAmt);
 									payLoanFrame.setVisible(false);
 
-									jLabel.setText("Your balance is " + Integer.toString(UserAccountQueries.getBalance(UID)));
+									jLabel.setText("Your balance is " + Integer.toString(BusinessAccountQueries.getBalance(BAID)));
 								}
 								else{
-									payLoanLabel.setText("Insufficient balance to pay. Amount: " + loanQueries.loanAmt(UID));
+									payLoanLabel.setText("Insufficient balance to pay. Amount: " + loanQueries.loanAmt(BAID));
 								}
 							}
 						});
@@ -171,7 +167,7 @@ public class UserLogin extends Queries {
 						payLoanPanel.add(innerPayPanel);
 						payLoanFrame.add(payLoanPanel);
 
-						UserLogin.setFrameVis(payLoanFrame,payLoanPanel);
+						BusinessLogin.setFrameVis(payLoanFrame,payLoanPanel);
 					}
 					else{
 						JFrame loanFrame = new JFrame("Avail Loan");
@@ -182,12 +178,12 @@ public class UserLogin extends Queries {
 						loanButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								LoanQueries loanQueries = new LoanQueries(connection);
-								loanQueries.insert_record(accountNum,Integer.parseInt(loanField.getText()),UID);
-								UserAccountQueries.updateBalance(UID,UserAccountQueries.getBalance(UID) + loanQueries.loanAmt(UID));
+								BusinessLoanQueries loanQueries = new BusinessLoanQueries(connection);
+								loanQueries.insert_record(BAID,Integer.parseInt(loanField.getText()),UIN);
+								BusinessAccountQueries.updateBalance(BAID,BusinessAccountQueries.getBalance(BAID) + loanQueries.loanAmt(BAID));
 								loanFrame.setVisible(false);
 
-								jLabel.setText("Your balance is " + Integer.toString(UserAccountQueries.getBalance(UID)));
+								jLabel.setText("Your balance is " + Integer.toString(BusinessAccountQueries.getBalance(BAID)));
 							}
 						});
 
@@ -195,7 +191,7 @@ public class UserLogin extends Queries {
 						loanPanel.add(loanField);
 						loanFrame.add(loanPanel);
 
-						UserLogin.setFrameVis(loanFrame,loanPanel);
+						BusinessLogin.setFrameVis(loanFrame,loanPanel);
 					}
 				}
 			});
@@ -220,12 +216,12 @@ public class UserLogin extends Queries {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							int amountWit = Integer.parseInt(payLoanField.getText());
-							int bal = UserAccountQueries.getBalance(UID);
+							int bal = BusinessAccountQueries.getBalance(BAID);
 							if(bal - amountWit >= 0) {
-								UserAccountQueries.updateBalance(UID, bal - amountWit);
+								BusinessAccountQueries.updateBalance(BAID, bal - amountWit);
 								payLoanFrame.setVisible(false);
 
-								jLabel.setText("Your balance is " + Integer.toString(UserAccountQueries.getBalance(UID)));
+								jLabel.setText("Your balance is " + Integer.toString(BusinessAccountQueries.getBalance(BAID)));
 							}
 							else
 								withLabel.setText("Insufficient Balance");
@@ -236,7 +232,7 @@ public class UserLogin extends Queries {
 					payLoanPanel.add(innerPayPanel);
 					payLoanFrame.add(payLoanPanel);
 
-					UserLogin.setFrameVis(payLoanFrame,payLoanPanel);
+					BusinessLogin.setFrameVis(payLoanFrame,payLoanPanel);
 				}
 			});
 
@@ -256,12 +252,13 @@ public class UserLogin extends Queries {
 					payLoanButton.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							DepositQueries depositQueries = new DepositQueries(connection);
+							BusinessDepositQueries depositQueries = new BusinessDepositQueries(connection);
 							int amountDep = Integer.parseInt(payLoanField.getText());
-							depositQueries.insert_record(accountNum,amountDep,UID);
+							depositQueries.insert_record(BAID,amountDep,UIN);
+							BusinessAccountQueries.updateBalance(BAID,BusinessAccountQueries.getBalance(BAID) + amountDep);
 							payLoanFrame.setVisible(false);
 
-							jLabel.setText("Your balance is " + Integer.toString(UserAccountQueries.getBalance(UID)));
+							jLabel.setText("Your balance is " + BusinessAccountQueries.getBalance(BAID));
 						}
 					});
 					innerPayPanel.add(payLoanField);
@@ -269,15 +266,20 @@ public class UserLogin extends Queries {
 					payLoanPanel.add(innerPayPanel);
 					payLoanFrame.add(payLoanPanel);
 
-					UserLogin.setFrameVis(payLoanFrame,payLoanPanel);
+					BusinessLogin.setFrameVis(payLoanFrame,payLoanPanel);
 				}
 			});
 
 			innerPanel.add(deposit);
 
-			UserAccountQueries userAccountQueries1 = new UserAccountQueries(connection);
+			/*UserAccountQueries userAccountQueries1 = new UserAccountQueries(connection);
 
-			String[] firstnames = userAccountQueries1.getAllUserAccounts(UID);
+			UserAccount[] list = userAccountQueries1.getAllUserAccounts();
+			String[] firstnames = new String[100];
+
+			for(int i=0;i<lenUsers;i++){
+				firstnames[i] = list[i].getFirstName();
+			}
 
 			JList jList = new JList(firstnames);
 			jList.addListSelectionListener(new ListSelectionListener() {
@@ -294,14 +296,11 @@ public class UserLogin extends Queries {
 						payUserButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								int[] UIDs = UserAccountQueries.UIDs;
-								int[] balances = UserAccountQueries.balances;
-
-								int sendingUID = UIDs[jList.getSelectedIndex()];
+								int sendingUID = list[jList.getSelectedIndex()].getUIN();
 								int amount = Integer.parseInt(payUserField.getText());
 								if(UserAccountQueries.getBalance(UID) - amount >= 0) {
 									BankQueries.insert_into_payments(sendingUID, UID, amount);
-									UserAccountQueries.updateBalance(sendingUID, balances[jList.getSelectedIndex()] + amount);
+									UserAccountQueries.updateBalance(sendingUID, list[jList.getSelectedIndex()].getBalance() + amount);
 									UserAccountQueries.updateBalance(UID, UserAccountQueries.getBalance(UID) - amount);
 
 									jLabel.setText("Your balance is " + UserAccountQueries.getBalance(UID));
@@ -333,14 +332,12 @@ public class UserLogin extends Queries {
 				}
 			});
 
-			JScrollPane jsp1 = new JScrollPane(jList);
-
-			jPanel.add(jsp1);
+			jPanel.add(jList);*/
 			jPanel.add(innerPanel);
 
 		}
 
-		UserLogin.setFrameVis(jFrame,jPanel);
+		BusinessLogin.setFrameVis(jFrame,jPanel);
 
 	}
 

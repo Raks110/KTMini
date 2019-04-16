@@ -3,6 +3,7 @@ package models.queries;
 import models.Business;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 public class BusinessQueries extends Queries {
 
@@ -34,5 +35,26 @@ public class BusinessQueries extends Queries {
 
     }
 
+    public int getBID(int managerID){
+		try {
+			String query = "SELECT BID FROM business WHERE managerID = " + managerID;
+			System.out.println(query);
+
+			ResultSet resultSet = query_statement.executeQuery(query);
+			resultSet.next();
+			return resultSet.getInt("BID");
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public boolean checkInsert(int managerID,String password) {
+
+		return isEmpty("SELECT * FROM business WHERE managerID = '" + managerID + "' AND password= '" + password + "'");
+
+	}
 
 }

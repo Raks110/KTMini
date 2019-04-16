@@ -1,8 +1,10 @@
 package com.knights.ktmini;
 
+import com.knights.ktmini.DatabaseClasses.Business.BusinessSchema;
 import com.knights.ktmini.DatabaseClasses.Users.UserLogin;
 import com.knights.ktmini.DatabaseClasses.Users.UserSchema;
 import models.queries.BankQueries;
+import models.queries.BusinessAccountQueries;
 import models.queries.BusinessQueries;
 
 import javax.swing.*;
@@ -196,12 +198,11 @@ public class Templar {
 					public void actionPerformed(ActionEvent e) {
 						String name = getInnerText(innerPanel3);
 						int mUIN = Integer.parseInt(getInnerText(innerPanel4));
-						String password = getInnerText(innerPanel5);
-						String conf = getInnerText(innerPanel6);
+						String password = getInnerPass(innerPanel5);
+						String conf = getInnerPass(innerPanel6);
 
 						if(password.equals(conf)){
-							BusinessQueries businessQueries = new BusinessQueries(connection);
-							businessQueries.insert_record(mUIN,name,password);
+							new BusinessSchema().insertValue(name,mUIN,password);
 						}
 					}
 				});
@@ -212,7 +213,72 @@ public class Templar {
 				JPanel innerPanel8 = new JPanel(new GridLayout(1,2));
 
 				JButton bankLog = new JButton("Login as Bank");
+
+				bankLog.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						int mUIN = Integer.parseInt(getInnerText(innerPanel1));
+						String password = getInnerPass(innerPanel2);
+
+						BankQueries bankQueries = new BankQueries(connection);
+						int bankID = bankQueries.getMainbankID(mUIN,password);
+
+						JFrame bankFrame = new JFrame("Templar Bank");
+
+						JPanel bankPanel = new JPanel(new GridLayout(3,1));
+
+						JPanel zerothPanel = new JPanel(new GridLayout(1,1));
+						JLabel logo = new JLabel(bankQueries.getBankName(bankID));
+						zerothPanel.add(logo);
+
+						JPanel firstPanel = new JPanel(new GridLayout(4,1));
+
+						JLabel uLabel = new JLabel("User Related Info");
+						JLabel numUsers = new JLabel("Number of Users: " + BankQueries.getNumUsers(bankID));
+						JLabel numLoan = new JLabel("Number of Loan Takers: " + BankQueries.getNumLoan(bankID));
+						JLabel numDep = new JLabel("Number of Depositors: " + BankQueries.getNumDeposits(bankID));
+
+						firstPanel.add(uLabel);
+						firstPanel.add(numUsers);
+						firstPanel.add(numLoan);
+						firstPanel.add(numDep);
+
+						JPanel secondPanel = new JPanel(new GridLayout(4,1));
+
+						JLabel uLabel2 = new JLabel("Enterprise Related Info");
+						JLabel numUsers2 = new JLabel("Number of Businesses: " + BankQueries.getBusinessNumUsers(bankID));
+						JLabel numLoan2 = new JLabel("Number of Loan Takers: " + BankQueries.getBusinessNumLoan(bankID));
+						JLabel numDep2 = new JLabel("Number of Depositors: " + BankQueries.getBusinessNumDeposits(bankID));
+
+						secondPanel.add(uLabel2);
+						secondPanel.add(numUsers2);
+						secondPanel.add(numLoan2);
+						secondPanel.add(numDep2);
+
+
+						zerothPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+						firstPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+						secondPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+						bankPanel.add(zerothPanel);
+						bankPanel.add(firstPanel);
+						bankPanel.add(secondPanel);
+
+						UserLogin.setFrameVis(bankFrame,bankPanel);
+
+					}
+				});
+
 				JButton busLog = new JButton("Login as Business");
+
+				busLog.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						int mUIN = Integer.parseInt(getInnerText(innerPanel1));
+						String password = getInnerPass(innerPanel2);
+						new BusinessSchema().insertValue("",mUIN, password);
+					}
+				});
 
 				innerPanel8.add(bankLog);
 				innerPanel8.add(busLog);
