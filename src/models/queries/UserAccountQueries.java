@@ -100,8 +100,6 @@ public class UserAccountQueries extends Queries {
 
 	public String[] getAllUserAccounts(int UID){
 
-    	UserAccount[] list = new UserAccount[100];
-
 		try {
 			String query = "SELECT * FROM user_account";
 			System.out.println(query);
@@ -117,8 +115,7 @@ public class UserAccountQueries extends Queries {
 			int i = 0;
 			UserLogin.lenUsers = 0;
 
-			//try {
-				while (true) {
+			while (true) {
 					if(rs.next()) {
 						System.out.println(rs.getInt("UIN"));
 						UINArr[i] = rs.getInt("UIN");
@@ -133,22 +130,20 @@ public class UserAccountQueries extends Queries {
 				}
 
 				String[] ua = new String[i];
+				int[] finalUIDs = new int[i];
+				int[] finalBalances = new int[i];
 				for(int j = 0;j<i;j++){
 					if(UINArr[j] == UID){
 						continue;
 					}
 					else{
-						//System.out.println(AccnArr[j] +  " " +UINArr[j] + " " +bankArr[j]+ " " +balArr[j]);
-						//ua[j] = new UserAccount(AccnArr[j],UINArr[j],bankArr[j],balArr[j]);
-
 						ua[j] = UserAccountQueries.getName(UINArr[j]);
+						finalUIDs[j] = UINArr[j];
+						finalBalances[j] = balances[j];
 					}
 				}
-			//}
-			//catch(Exception e){e.getMessage();}
-
-			UIDs = UINArr;
-				balances = balArr;
+			UIDs = finalUIDs;
+				balances = finalBalances;
 			return ua;
 		}
 		catch(Exception e){

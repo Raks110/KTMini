@@ -2,21 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ca60205-414f-4571-a368-9081ff5c0d25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessSchema.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/queries/BusinessDepositQueries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/queries/BusinessLoanQueries.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/queries/ContractQueries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Users/UserSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Users/UserSchema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/panels/NoBankAccounts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/BusinessQueries.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/BusinessQueries.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserSchema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/knights/ktmini/Templar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/knights/ktmini/Templar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/knights/ktmini/panels/NoBankAccounts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/queries/BankQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/queries/BankQueries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$3$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$3$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$4$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$4$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/BusinessAccountQueries.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/BusinessAccountQueries.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/UserAccountQueries.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KnightsTemplar/models/queries/UserAccountQueries.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/queries/BusinessQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/queries/BusinessQueries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/queries/UserAccountQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/queries/UserAccountQueries.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -50,22 +51,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/Templar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="225" column="63" selection-start-line="225" selection-start-column="63" selection-end-line="225" selection-end-column="63" />
+            <state relative-caret-position="194">
+              <caret line="290" column="16" selection-start-line="290" selection-start-column="16" selection-end-line="290" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/queries/BankQueries.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="70" column="56" lean-forward="true" selection-start-line="70" selection-start-column="56" selection-end-line="70" selection-end-column="56" />
-              <folding>
-                <element signature="e#1323#1331#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="134" column="61" selection-start-line="134" selection-start-column="61" selection-end-line="134" selection-end-column="61" />
+            <state relative-caret-position="-1639">
+              <caret line="287" column="43" lean-forward="true" selection-start-line="287" selection-start-column="43" selection-end-line="287" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,10 +73,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/models/queries/ContractQueries.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-102">
+              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#130#131#0" expanded="true" />
+                <element signature="e#141#142#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserLogin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-58">
-              <caret line="298" selection-start-line="298" selection-end-line="298" />
+            <state>
+              <caret column="32" selection-start-column="32" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,10 +99,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/queries/UserAccountQueries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="150" column="34" selection-start-line="150" selection-start-column="34" selection-end-line="150" selection-end-column="34" />
+            <state relative-caret-position="345">
+              <caret line="145" column="41" lean-forward="true" selection-start-line="145" selection-start-column="41" selection-end-line="145" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -128,9 +140,10 @@
       <find>SwingU</find>
       <find>repain</find>
       <find>jPanel</find>
-      <find>UserAccount</find>
       <find>loanTaken</find>
       <find>LoanQueries</find>
+      <find>UserAccount</find>
+      <find>bord</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,13 +167,14 @@
         <option value="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessSchema.java" />
         <option value="$PROJECT_DIR$/src/models/queries/BusinessDepositQueries.java" />
         <option value="$PROJECT_DIR$/src/models/queries/BusinessQueries.java" />
-        <option value="$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java" />
         <option value="$PROJECT_DIR$/src/models/queries/BusinessLoanQueries.java" />
-        <option value="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java" />
         <option value="$PROJECT_DIR$/src/models/queries/BankQueries.java" />
         <option value="$PROJECT_DIR$/src/com/knights/ktmini/Templar.java" />
-        <option value="$PROJECT_DIR$/src/models/queries/UserAccountQueries.java" />
         <option value="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserLogin.java" />
+        <option value="$PROJECT_DIR$/src/models/queries/UserAccountQueries.java" />
+        <option value="$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java" />
+        <option value="$PROJECT_DIR$/src/models/queries/ContractQueries.java" />
+        <option value="$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java" />
       </list>
     </option>
   </component>
@@ -242,7 +256,7 @@
     <property name="DatabaseDriversLRU" value="oracle" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555374047109" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555378508813" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="F:/Oracle/jdbc/lib/ojdbc8.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -300,18 +314,18 @@
       <workItem from="1555043669977" duration="4363000" />
       <workItem from="1555083610915" duration="13281000" />
       <workItem from="1555145280428" duration="21792000" />
-      <workItem from="1555331789702" duration="32431000" />
+      <workItem from="1555331789702" duration="36884000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80556000" />
+    <option name="totallyTimeSpent" value="85009000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="693" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.26153848" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26153848" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -514,13 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/queries/LoanQueries.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -551,36 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/Templar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="225" column="63" selection-start-line="225" selection-start-column="63" selection-end-line="225" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/queries/BankQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="70" column="56" lean-forward="true" selection-start-line="70" selection-start-column="56" selection-end-line="70" selection-end-column="56" />
-          <folding>
-            <element signature="e#1323#1331#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="134" column="61" selection-start-line="134" selection-start-column="61" selection-end-line="134" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/UserAccount.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -590,17 +567,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/models/queries/UserAccountQueries.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="150" column="34" selection-start-line="150" selection-start-column="34" selection-end-line="150" selection-end-column="34" />
+        <state relative-caret-position="345">
+          <caret line="145" column="41" lean-forward="true" selection-start-line="145" selection-start-column="41" selection-end-line="145" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Users/UserLogin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="298" selection-start-line="298" selection-end-line="298" />
+        <state>
+          <caret column="32" selection-start-column="32" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/queries/BankQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="40" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="40" />
+          <folding>
+            <element signature="e#1323#1331#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/Templar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="290" column="16" selection-start-line="290" selection-start-column="16" selection-end-line="290" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/knights/ktmini/DatabaseClasses/Business/BusinessLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1639">
+          <caret line="287" column="43" lean-forward="true" selection-start-line="287" selection-start-column="43" selection-end-line="287" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/queries/BusinessAccountQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/queries/ContractQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#130#131#0" expanded="true" />
+            <element signature="e#141#142#0" expanded="true" />
           </folding>
         </state>
       </provider>

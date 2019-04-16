@@ -1,5 +1,6 @@
 package com.knights.ktmini.DatabaseClasses.Business;
 
+import com.knights.ktmini.Templar;
 import models.queries.*;
 
 import javax.swing.*;
@@ -77,32 +78,40 @@ public class BusinessLogin extends Queries {
 
 					String[] banks = bankQueries.getAllBanks();
 
-					JList bankList = new JList(banks);
-					bankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					bankList.setVisibleRowCount(5);
+					if(banks == null || BankQueries.immediateLength <= 0){
+						JLabel accountLabel = new JLabel("No banks available.");
+						accountPanel.add(accountLabel);
+					}
 
-					accountPanel.add(bankList);
+					else {
 
-					JButton addBank = new JButton("Create Account");
-					addBank.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							String bankSel = (String)bankList.getSelectedValue();
-							int accn = Integer.parseInt(bankQueries.getMainbankID(bankSel) + Integer.toString(BID));
+						JList bankList = new JList(banks);
+						bankList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+						bankList.setVisibleRowCount(5);
 
-							String bankID = bankQueries.getMainbankID(bankSel);
+						accountPanel.add(bankList);
 
-							baq.insert_record(BID,Integer.parseInt(bankID),0);
+						JButton addBank = new JButton("Create Account");
+						addBank.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								String bankSel = (String) bankList.getSelectedValue();
+								int accn = Integer.parseInt(bankQueries.getMainbankID(bankSel) + Integer.toString(BID));
 
-							BAID = baq.getBAID(BID);
+								String bankID = bankQueries.getMainbankID(bankSel);
 
-							jFrame1.setVisible(false);
-							jFrame.setVisible(false);
+								baq.insert_record(BID, Integer.parseInt(bankID), 0);
 
-						}
-					});
+								BAID = baq.getBAID(BID);
 
-					accountPanel.add(addBank);
+								jFrame1.setVisible(false);
+								jFrame.setVisible(false);
+
+							}
+						});
+
+						accountPanel.add(addBank);
+					}
 					jFrame1.add(accountPanel);
 
 					BusinessLogin.setFrameVis(jFrame1,accountPanel);
@@ -272,38 +281,67 @@ public class BusinessLogin extends Queries {
 
 			innerPanel.add(deposit);
 
-			/*UserAccountQueries userAccountQueries1 = new UserAccountQueries(connection);
+			BusinessAccountQueries businessAccountQueries = new BusinessAccountQueries(connection);
 
-			UserAccount[] list = userAccountQueries1.getAllUserAccounts();
-			String[] firstnames = new String[100];
+			String[] names = businessAccountQueries.getAllBusinessAccounts(BAID);
 
-			for(int i=0;i<lenUsers;i++){
-				firstnames[i] = list[i].getFirstName();
-			}
-
-			JList jList = new JList(firstnames);
+			JList jList = new JList(names);
 			jList.addListSelectionListener(new ListSelectionListener() {
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
 					if(!e.getValueIsAdjusting()){
-						JFrame payUserFrame = new JFrame("Send Money");
-						JPanel payUserPanel = new JPanel(new GridLayout(3,1));
+						JFrame payUserFrame = new JFrame("Send Contract");
+						JPanel payUserPanel = new JPanel();
+						payUserPanel.setLayout(new BoxLayout(payUserPanel, BoxLayout.Y_AXIS));
 
-						JLabel payUserLabel = new JLabel("Send Money");
-						JTextField payUserField = new JTextField();
-						JButton payUserButton = new JButton("Send Money To " + jList.getSelectedValue());
+						JLabel payUserLabel = new JLabel("Send Contract");
+
+						JPanel inout1 = Templar.createHorizontal("Title");
+
+						JPanel inout2 = new JPanel(new GridLayout(2,1));
+
+						JLabel textarealabel = new JLabel("Terms");
+						JTextArea textArea = new JTextArea();
+						textArea.setColumns(10);
+						textArea.setRows(10);
+
+						inout2.add(textarealabel);
+						inout2.add(textArea);
+
+						JPanel inout3 = new JPanel(new GridLayout(2,1));
+
+						JLabel payLabel = new JLabel("Money to be sent: ");
+						JTextArea payUserField = new JTextArea();
+
+						inout3.add(payLabel);
+						inout3.add(payUserField);
+
+						JButton payUserButton = new JButton("Send Contract To " + jList.getSelectedValue());
 
 						payUserButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								int sendingUID = list[jList.getSelectedIndex()].getUIN();
-								int amount = Integer.parseInt(payUserField.getText());
-								if(UserAccountQueries.getBalance(UID) - amount >= 0) {
-									BankQueries.insert_into_payments(sendingUID, UID, amount);
-									UserAccountQueries.updateBalance(sendingUID, list[jList.getSelectedIndex()].getBalance() + amount);
-									UserAccountQueries.updateBalance(UID, UserAccountQueries.getBalance(UID) - amount);
+								System.out.println("Hello 1");
+								int[] BAIDs = BusinessAccountQueries.BAIDList;
+								int[] balances = BusinessAccountQueries.balances;
 
-									jLabel.setText("Your balance is " + UserAccountQueries.getBalance(UID));
+								System.out.println(BAIDs.length);
+								int sendingUID = BAIDs[jList.getSelectedIndex()];
+								int amount = Integer.parseInt(payUserField.getText());
+								if(BusinessAccountQueries.getBalance(BAID) - amount >= 0) {
+									BusinessAccountQueries.updateBalance(sendingUID, balances[jList.getSelectedIndex()] + amount);
+									BusinessAccountQueries.updateBalance(BAID, BusinessAccountQueries.getBalance(BAID) - amount);
+
+									ContractQueries contractQueries = new ContractQueries(connection);
+
+									int contractorID = BAID;
+									int contracteeID = sendingUID;
+									String title = Templar.getInnerText(inout1);
+									String terms = textArea.getText();
+
+									contractQueries.insert_record(contractorID,contracteeID,title,terms,amount);
+
+									jLabel.setText("Your balance is " + BusinessAccountQueries.getBalance(BAID));
 
 									JFrame jTemp = new JFrame("Successful Transaction");
 									JPanel jTempPan = new JPanel();
@@ -311,7 +349,7 @@ public class BusinessLogin extends Queries {
 									JLabel jTempLab = new JLabel("Successful Transfer!");
 									jTempPan.add(jTempLab);
 
-									UserLogin.setFrameVis(jTemp,jTempPan);
+									BusinessLogin.setFrameVis(jTemp,jTempPan);
 									payUserFrame.setVisible(false);
 
 								}
@@ -321,19 +359,40 @@ public class BusinessLogin extends Queries {
 							}
 						});
 
+						inout1.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+						inout2.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+						inout3.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+
+						payUserLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+						payUserLabel.add(Box.createRigidArea(new Dimension(100,30)));
 						payUserPanel.add(payUserLabel);
 
-						payUserPanel.add(payUserField);
+						payUserPanel.add(inout1);
+						payUserPanel.add(inout2);
+						payUserPanel.add(inout3);
+						inout3.add(Box.createRigidArea(new Dimension(100,30)));
+
+						payUserButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+						payUserButton.add(Box.createRigidArea(new Dimension(230,20)));
 						payUserPanel.add(payUserButton);
 
-						UserLogin.setFrameVis(payUserFrame,payUserPanel);
+						JScrollPane jsp3 = new JScrollPane(payUserPanel);
+						JPanel mainPanelBus = new JPanel();
+
+						mainPanelBus.add(jsp3);
+
+						BusinessLogin.setFrameVis(payUserFrame,mainPanelBus);
 
 					}
 				}
 			});
 
-			jPanel.add(jList);*/
+			jList.setVisibleRowCount(5);
+			JScrollPane jsp1 = new JScrollPane(jList);
+
+			jPanel.add(jsp1);
 			jPanel.add(innerPanel);
+
 
 		}
 

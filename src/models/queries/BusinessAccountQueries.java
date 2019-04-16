@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 
 public class BusinessAccountQueries extends Queries {
 
+	public static int[] BAIDList;
+	public static int[] balances;
+
     public BusinessAccountQueries(Connection connection) {
         super((connection));
     }
@@ -76,6 +79,59 @@ public class BusinessAccountQueries extends Queries {
 		catch(Exception e){
 			e.printStackTrace();
 			return 0;
+		}
+	}
+
+	public String[] getAllBusinessAccounts(int BAID){
+
+
+		try {
+			String query = "SELECT * FROM business NATURAL JOIN businessAccount";
+			System.out.println(query);
+			ResultSet rs = query_statement.executeQuery(query);
+
+			System.out.println(rs.toString());
+
+			int[] BAIDs = new int[100];
+			int[] amount = new int[100];
+			String[] Names = new String[100];
+
+			int i = 0;
+
+			while (true) {
+				if(rs.next()) {
+					System.out.println(rs.getInt("BAID"));
+					BAIDs[i] = rs.getInt("BAID");
+					Names[i] = rs.getString("name");
+					amount[i] = rs.getInt("amount");
+					++i;
+				}
+				else{
+					break;
+				}
+			}
+
+			String[] ua = new String[i];
+			int[] finalBAIDS = new int[i];
+			int[] finalBalances = new int[i];
+
+			for(int j = 0;j<i;j++){
+				if(BAIDs[j] == BAID){
+					continue;
+				}
+				else{
+					ua[j] = Names[j];
+					finalBAIDS[j] = BAIDs[j];
+					finalBalances[j] = amount[j];
+				}
+			}
+			BAIDList = finalBAIDS;
+			balances = finalBalances;
+			return ua;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 
